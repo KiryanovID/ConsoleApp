@@ -30,14 +30,14 @@ public class Main {
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String stringForRsponce = bufferedReader.readLine();
-        return stringForRsponce;
+        String stringForResponce = bufferedReader.readLine();
+        return stringForResponce;
 
     }
     public String getResponce(String response) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        Person json = mapper.readValue(response, Person.class);
-        String resultString = json.getDataPerson().getFirstName() + " " + json.getDataPerson().getLastName();
+        Person person = mapper.readValue(response, Person.class);
+        String resultString = person.getDataPerson().getFirstName() + " " + person  .getDataPerson().getLastName();
         return resultString;
     }
 }
