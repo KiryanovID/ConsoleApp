@@ -1,8 +1,8 @@
-public class Support {
+public class SupportPerson {
     private String url;
     private String text;
 
-    public Support() {
+    public SupportPerson() {
     }
 
     public String getUrl() {

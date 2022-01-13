@@ -9,9 +9,15 @@ import java.net.URL;
 
 public class Main {
     public static void main(String[] args)  {
-        int id = Integer.parseInt(args[0]);
         try {
-            System.out.println(getResponce(getJsonString(id)));
+            int id = Integer.parseInt(args[0]);
+            String stringForResponce = getJsonString(id);
+            String resultString = getResponce(stringForResponce);
+            System.out.println(resultString);
+        }
+
+        catch (NumberFormatException e){
+            System.out.println("Введено не верный аргумент");
         }
         catch (Exception e){
             System.out.println("User not found!");
@@ -19,16 +25,18 @@ public class Main {
     }
 
     public static String getJsonString(int id) throws IOException{
-        URL url = new URL("https://reqres.in/api/users/"+id);
+        URL url = new URL("https://reqres.in/api/users/" +id);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        return bufferedReader.readLine();
+        String stringForRsponce = bufferedReader.readLine();
+        return stringForRsponce;
 
     }
     public static String getResponce(String response) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        Json json = mapper.readValue(response, Json.class);
-        return json.getData().getFirst_name() + " " + json.getData().getLast_name();
+        Person json = mapper.readValue(response, Person.class);
+        String resultString = json.getDataPerson().getFirstName() + " " + json.getDataPerson().getLastName();
+        return resultString;
     }
 }
