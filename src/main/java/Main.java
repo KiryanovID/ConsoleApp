@@ -9,10 +9,11 @@ import java.net.URL;
 
 public class Main {
     public static void main(String[] args)  {
+        Main main = new Main();
         try {
             int id = Integer.parseInt(args[0]);
-            String stringForResponce = getJsonString(id);
-            String resultString = getResponce(stringForResponce);
+            String stringForResponce = main.getJsonString(id);
+            String resultString = main.getResponce(stringForResponce);
             System.out.println(resultString);
         }
 
@@ -24,7 +25,7 @@ public class Main {
         }
     }
 
-    public static String getJsonString(int id) throws IOException{
+    public String getJsonString(int id) throws IOException{
         URL url = new URL("https://reqres.in/api/users/" +id);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
@@ -33,7 +34,7 @@ public class Main {
         return stringForRsponce;
 
     }
-    public static String getResponce(String response) throws JsonProcessingException {
+    public String getResponce(String response) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Person json = mapper.readValue(response, Person.class);
         String resultString = json.getDataPerson().getFirstName() + " " + json.getDataPerson().getLastName();
